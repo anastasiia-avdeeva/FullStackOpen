@@ -1,0 +1,15 @@
+sequenceDiagram
+participant browser
+participant server
+
+Note right of browser: A user write a note and click Save button
+Note right of browser: JS code prevents default behavior (submission and page reload)
+Note right of browser: JS code pushes new note object to the note array, where other notes fetched from the server are stored
+Note right of browser: The note list is redrawn using the note array
+
+browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+activate server
+server->>browser: 201 Created, JSON response ({"message":"note created"})
+deactivate server
+
+Note left of server: The server sends a response confirming the note was created
