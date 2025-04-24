@@ -1,6 +1,9 @@
 sequenceDiagram
 participant browser
 participant server
+
+Note right of browser: A user write note and click Save button
+
 browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
 activate server
 server->>browser: 302 Found, Location /exampleapp/notes
