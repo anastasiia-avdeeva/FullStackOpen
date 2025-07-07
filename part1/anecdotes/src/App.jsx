@@ -8,7 +8,11 @@ const App = () => {
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
   const handleNextClick = () => {
-    setSelected(chooseRandom());
+    let randomIndex;
+    do {
+      randomIndex = chooseRandom();
+    } while (randomIndex === selected);
+    setSelected(randomIndex);
   };
 
   const handleVoteClick = () => {
@@ -17,15 +21,41 @@ const App = () => {
     setVotes(newVotes);
   };
 
+  const findsIfAnyVotes = () => {
+    const arraySum = votes.reduce(
+      (accumulator, currentVal) => accumulator + currentVal,
+      0
+    );
+    return !!arraySum;
+  };
+
+  const findMostVoted = () => {
+    return votes.reduce((maxId, currentVal, currentId, array) => {
+      return currentVal > array[maxId] ? currentId : maxId;
+    }, 0);
+  };
+
   return (
-    <div>
-      <p>{anecdotes[selected]}</p>
-      <p>
-        has {votes[selected]} {votes[selected] === 1 ? "vote" : "votes"}{" "}
-      </p>
-      <TextBtn text="vote" onClick={handleVoteClick} />
-      <TextBtn text="next anecdote" onClick={handleNextClick} />
-    </div>
+    <>
+      <h1 style={{ display: "none" }}>Anecdotes for developers</h1>
+      <div>
+        <h2>Anecdote of the day</h2>
+        <p>{anecdotes[selected]}</p>
+        <p>
+          has {votes[selected]} {votes[selected] === 1 ? "vote" : "votes"}{" "}
+        </p>
+        <TextBtn text="vote" onClick={handleVoteClick} />
+        <TextBtn text="next anecdote" onClick={handleNextClick} />
+      </div>
+      <div>
+        <h2>Anecdote with most votes</h2>
+        {findsIfAnyVotes() ? (
+          <p>{anecdotes[findMostVoted()]}</p>
+        ) : (
+          <p>No anecdote has been voted yet</p>
+        )}
+      </div>
+    </>
   );
 };
 
