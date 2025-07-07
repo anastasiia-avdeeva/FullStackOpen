@@ -18,6 +18,21 @@ const App = () => {
     setBad((bad) => bad + 1);
   };
 
+  const countAll = () => {
+    return good + neutral + bad;
+  };
+
+  const countAvg = () => {
+    const avg = (good - bad) / countAll();
+    return avg || "";
+  };
+
+  const countPositive = () => {
+    if (!countAll()) return "";
+    const pos = (good * 100) / countAll();
+    return pos + "%";
+  };
+
   return (
     <div>
       <h1>Give us feedback</h1>
@@ -26,9 +41,12 @@ const App = () => {
       <TextBtn onClick={handleNeutralClick}>neutral</TextBtn>
       <TextBtn onClick={handleBadClick}>bad</TextBtn>
       <h2>Statistics:</h2>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
+      <p>good: {good}</p>
+      <p>neutral: {neutral}</p>
+      <p>bad: {bad}</p>
+      <p>all: {countAll()}</p>
+      <p> average: {countAvg()}</p>
+      <p>positive: {countPositive()}</p>
     </div>
   );
 };
