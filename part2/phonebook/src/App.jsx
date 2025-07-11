@@ -1,12 +1,11 @@
 import { useState } from "react";
+import { personsInfo } from "./constants/constants";
+import { PersonForm } from "./components/PersonForm";
+import { ContactFilter } from "./components/ContactFilter";
+import { Persons } from "./components/Persons";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "040-123456", id: 1 },
-    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
-    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
-    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
-  ]);
+  const [persons, setPersons] = useState(personsInfo);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterPattern, setFilterPattern] = useState("");
@@ -79,54 +78,25 @@ const App = () => {
     setAppliedFilter("");
   };
   return (
-    <div>
-      <h2>Phonebook</h2>
-      <form onSubmit={addEntry}>
-        <div>
-          <label htmlFor="nameInput">name: </label>
-          <input
-            type="text"
-            id="nameInput"
-            name="nameInput"
-            value={newName}
-            onChange={handleNameInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="phoneInput">phone number: </label>
-          <input
-            type="tel"
-            id="phoneInput"
-            name="phoneInput"
-            minLength="3"
-            maxLength="20"
-            value={newNumber}
-            onChange={handlePhoneInputChange}
-          />
-        </div>
-        <button type="submit">add</button>
-      </form>
-      <div>
-        <h2>Numbers</h2>
-        <div>
-          <label htmlFor="filterInput">Filter by name: </label>
-          <input
-            type="text"
-            name="filterInput"
-            id="filterInput"
-            value={filterPattern}
-            onChange={handleFilterInputChange}
-          />
-          <button onClick={applyFilter}>Apply</button>
-          <button onClick={discardFilter}>Discard</button>
-        </div>
-        {personsToShow.map((person) => (
-          <p key={person.id}>
-            {person.name} {person.number}
-          </p>
-        ))}
-      </div>
-    </div>
+    <>
+      <h1>Phonebook</h1>
+      <h2>Add new contact</h2>
+      <PersonForm
+        addEntry={addEntry}
+        newName={newName}
+        onNameInputChange={handleNameInputChange}
+        newNumber={newNumber}
+        onPhoneInputChange={handlePhoneInputChange}
+      />
+      <h2>Contacts</h2>
+      <ContactFilter
+        filterValue={filterPattern}
+        onFilterInputChange={handleFilterInputChange}
+        onApplyFilter={applyFilter}
+        onDiscardFilter={discardFilter}
+      />
+      <Persons persons={personsToShow} />
+    </>
   );
 };
 
