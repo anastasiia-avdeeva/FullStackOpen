@@ -6,8 +6,6 @@ import { Persons } from "./components/Persons";
 
 const App = () => {
   const [persons, setPersons] = useState(personsInfo);
-  const [newName, setNewName] = useState("");
-  const [newNumber, setNewNumber] = useState("");
   const [newContact, setNewContact] = useState({ name: "", number: "" });
   const [filterPattern, setFilterPattern] = useState("");
   const [appliedFilter, setAppliedFilter] = useState("");
@@ -18,61 +16,57 @@ const App = () => {
         person.name.toLowerCase().includes(appliedFilter.toLowerCase())
       );
 
-  const discardInputStates = () => {
-    setNewName("");
-    setNewNumber("");
-  };
-
   const addEntry = (event) => {
     event.preventDefault();
-
-    if (!newName) {
+    if (!newContact.name) {
       alert("Please, fill in name");
       return;
     }
 
-    if (!newNumber) {
+    if (!newContact.number) {
       alert("Please fill in phone number");
       return;
     }
 
-    const isNameInPersons = persons.some((person) => person.name === newName);
+    const isNameInPersons = persons.some(
+      (person) => person.name === newContact.name
+    );
 
     if (isNameInPersons) {
-      alert(`${newName} is already in the phonebook`);
-      discardInputStates();
+      alert(`${newContact.name} is already in the phonebook`);
+      setNewContact({ name: "", number: "" });
       return;
     }
 
     const isNumberInPersons = persons.some(
-      (person) => person.number === newNumber
+      (person) => person.number === newContact.number
     );
 
     if (isNumberInPersons) {
-      alert(`${newNumber} is already in the phonebook`);
-      discardInputStates();
+      alert(`${newContact.number} is already in the phonebook`);
+      setNewContact({ name: "", number: "" });
       return;
     }
 
     setPersons(
       persons.concat({
-        name: newName,
-        phone: newNumber,
+        name: newContact.name,
+        number: newContact.number,
         id: persons.length + 1,
       })
     );
-    discardInputStates();
+    setNewContact({ name: "", number: "" });
   };
 
   const handleNameInputChange = (event) => {
-    const name = event.target.value.trim();
-    setNewName(name);
+    const newName = event.target.value.trim();
+    setNewContact((prevContact) => ({ ...prevContact, name: newName }));
   };
 
   const handlePhoneInputChange = (event) => {
     const pattern = /[^\d+-]/g;
-    const newVal = event.target.value.replace(pattern, "");
-    setNewNumber(newVal);
+    const newNumber = event.target.value.replace(pattern, "");
+    setNewContact((prevContact) => ({ ...prevContact, number: newNumber }));
   };
 
   const handleFilterInputChange = (event) => {
@@ -93,9 +87,9 @@ const App = () => {
       <h2>Add new contact</h2>
       <PersonForm
         addEntry={addEntry}
-        newName={newName}
+        newName={newContact.name}
         onNameInputChange={handleNameInputChange}
-        newNumber={newNumber}
+        newNumber={newContact.number}
         onPhoneInputChange={handlePhoneInputChange}
       />
       <h2>Contacts</h2>
