@@ -8,6 +8,7 @@ const App = () => {
   const [persons, setPersons] = useState(personsInfo);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [newContact, setNewContact] = useState({ name: "", number: "" });
   const [filterPattern, setFilterPattern] = useState("");
   const [appliedFilter, setAppliedFilter] = useState("");
 
@@ -35,11 +36,20 @@ const App = () => {
       return;
     }
 
-    const isInPersons = persons.some(
-      (person) => person.name === newName || person.number === newNumber
-    );
-    if (isInPersons) {
+    const isNameInPersons = persons.some((person) => person.name === newName);
+
+    if (isNameInPersons) {
       alert(`${newName} is already in the phonebook`);
+      discardInputStates();
+      return;
+    }
+
+    const isNumberInPersons = persons.some(
+      (person) => person.number === newNumber
+    );
+
+    if (isNumberInPersons) {
+      alert(`${newNumber} is already in the phonebook`);
       discardInputStates();
       return;
     }
@@ -55,8 +65,8 @@ const App = () => {
   };
 
   const handleNameInputChange = (event) => {
-    const newFilter = event.target.value.trim();
-    setNewName(newFilter);
+    const name = event.target.value.trim();
+    setNewName(name);
   };
 
   const handlePhoneInputChange = (event) => {
