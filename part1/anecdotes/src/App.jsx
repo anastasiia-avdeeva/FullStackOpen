@@ -52,7 +52,7 @@ const App = () => {
         {findsIfAnyVotes() ? (
           <p>{anecdotes[findMostVoted()]}</p>
         ) : (
-          <p>No anecdote has been voted yet</p>
+          <p>No anecdote has been voted for yet</p>
         )}
       </div>
     </>
