@@ -2,14 +2,25 @@ import { useState } from "react";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phone: "+3590087589" },
+    { name: "Arto Hellas", number: "040-123456", id: 1 },
+    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
+    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
+    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
   const [newName, setNewName] = useState("");
-  const [newPhone, setNewPhone] = useState("");
+  const [newNumber, setNewNumber] = useState("");
+  const [filterPattern, setFilterPattern] = useState("");
+  const [appliedFilter, setAppliedFilter] = useState("");
+
+  const personsToShow = !appliedFilter
+    ? persons
+    : persons.filter((person) =>
+        person.name.toLowerCase().includes(appliedFilter.toLowerCase())
+      );
 
   const discardInputStates = () => {
     setNewName("");
-    setNewPhone("");
+    setNewNumber("");
   };
 
   const addEntry = (event) => {
@@ -20,13 +31,13 @@ const App = () => {
       return;
     }
 
-    if (!newPhone) {
+    if (!newNumber) {
       alert("Please fill in phone number");
       return;
     }
 
     const isInPersons = persons.some(
-      (person) => person.name === newName || person.phone === newPhone
+      (person) => person.name === newName || person.number === newNumber
     );
     if (isInPersons) {
       alert(`${newName} is already in the phonebook`);
@@ -34,20 +45,39 @@ const App = () => {
       return;
     }
 
-    setPersons(persons.concat({ name: newName, phone: newPhone }));
+    setPersons(
+      persons.concat({
+        name: newName,
+        phone: newNumber,
+        id: persons.length + 1,
+      })
+    );
     discardInputStates();
   };
 
   const handleNameInputChange = (event) => {
-    setNewName(event.target.value);
+    const newFilter = event.target.value.trim();
+    setNewName(newFilter);
   };
 
   const handlePhoneInputChange = (event) => {
-    const pattern = /[^\d+]/g;
+    const pattern = /[^\d+-]/g;
     const newVal = event.target.value.replace(pattern, "");
-    setNewPhone(newVal);
+    setNewNumber(newVal);
   };
 
+  const handleFilterInputChange = (event) => {
+    setFilterPattern(event.target.value);
+  };
+
+  const applyFilter = () => {
+    setAppliedFilter(filterPattern);
+    setFilterPattern("");
+  };
+
+  const discardFilter = () => {
+    setAppliedFilter("");
+  };
   return (
     <div>
       <h2>Phonebook</h2>
@@ -57,29 +87,45 @@ const App = () => {
           <input
             type="text"
             id="nameInput"
+            name="nameInput"
             value={newName}
             onChange={handleNameInputChange}
           />
         </div>
         <div>
-          <label htmlFor="phoneInput">phone number:</label>
+          <label htmlFor="phoneInput">phone number: </label>
           <input
             type="tel"
             id="phoneInput"
+            name="phoneInput"
             minLength="3"
             maxLength="20"
-            value={newPhone}
+            value={newNumber}
             onChange={handlePhoneInputChange}
           />
         </div>
         <button type="submit">add</button>
       </form>
-      <h2>Numbers</h2>
-      {persons.map((person) => (
-        <p key={person.name}>
-          {person.name} {person.phone}
-        </p>
-      ))}
+      <div>
+        <h2>Numbers</h2>
+        <div>
+          <label htmlFor="filterInput">Filter by name: </label>
+          <input
+            type="text"
+            name="filterInput"
+            id="filterInput"
+            value={filterPattern}
+            onChange={handleFilterInputChange}
+          />
+          <button onClick={applyFilter}>Apply</button>
+          <button onClick={discardFilter}>Discard</button>
+        </div>
+        {personsToShow.map((person) => (
+          <p key={person.id}>
+            {person.name} {person.number}
+          </p>
+        ))}
+      </div>
     </div>
   );
 };
