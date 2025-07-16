@@ -10,14 +10,17 @@ const App = () => {
   const [filterPattern, setFilterPattern] = useState("");
   const [appliedFilter, setAppliedFilter] = useState("");
 
+  const resetNewContact = () => setNewContact({ name: "", number: "" });
+
   const personsToShow = !appliedFilter
     ? persons
     : persons.filter((person) =>
-        person.name.toLowerCase().includes(appliedFilter.toLowerCase())
+        person.name.toLowerCase().includes(appliedFilter)
       );
 
   const addEntry = (event) => {
     event.preventDefault();
+
     if (!newContact.name) {
       alert("Please, fill in name");
       return;
@@ -34,7 +37,7 @@ const App = () => {
 
     if (isNameInPersons) {
       alert(`${newContact.name} is already in the phonebook`);
-      setNewContact({ name: "", number: "" });
+      resetNewContact();
       return;
     }
 
@@ -44,7 +47,7 @@ const App = () => {
 
     if (isNumberInPersons) {
       alert(`${newContact.number} is already in the phonebook`);
-      setNewContact({ name: "", number: "" });
+      resetNewContact();
       return;
     }
 
@@ -55,7 +58,7 @@ const App = () => {
         id: persons.length + 1,
       })
     );
-    setNewContact({ name: "", number: "" });
+    resetNewContact();
   };
 
   const handleNameInputChange = (event) => {
@@ -74,13 +77,14 @@ const App = () => {
   };
 
   const applyFilter = () => {
-    setAppliedFilter(filterPattern);
+    setAppliedFilter(filterPattern.trim().toLowerCase());
     setFilterPattern("");
   };
 
   const discardFilter = () => {
     setAppliedFilter("");
   };
+
   return (
     <>
       <h1>Phonebook</h1>
