@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { personsInfo } from "./constants/constants";
 import { PersonForm } from "./components/PersonForm";
 import { ContactFilter } from "./components/ContactFilter";
 import { Persons } from "./components/Persons";
 
 const App = () => {
-  const [persons, setPersons] = useState(personsInfo);
+  const [persons, setPersons] = useState([]);
   const [newContact, setNewContact] = useState({ name: "", number: "" });
   const [filterPattern, setFilterPattern] = useState("");
 
@@ -15,6 +14,12 @@ const App = () => {
   const personsToShow = persons.filter((person) =>
     person.name.toLowerCase().includes(filterPattern)
   );
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/persons").then((response) => {
+      setPersons(response.data);
+    });
+  }, []);
 
   const addEntry = (event) => {
     event.preventDefault();
