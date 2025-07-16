@@ -9,7 +9,6 @@ const App = () => {
   const [newContact, setNewContact] = useState({ name: "", number: "" });
   const [showAll, setShowAll] = useState(true);
   const [filterPattern, setFilterPattern] = useState("");
-  // const [appliedFilter, setAppliedFilter] = useState("");
 
   const resetNewContact = () => setNewContact({ name: "", number: "" });
 
@@ -79,13 +78,10 @@ const App = () => {
   };
 
   const applyFilter = () => {
-    // setAppliedFilter(filterPattern.trim().toLowerCase());
-    // setFilterPattern("");
     setShowAll(false);
   };
 
   const discardFilter = () => {
-    // setAppliedFilter("");
     setShowAll(true);
     setFilterPattern("");
   };
