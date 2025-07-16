@@ -7,16 +7,14 @@ import { Persons } from "./components/Persons";
 const App = () => {
   const [persons, setPersons] = useState(personsInfo);
   const [newContact, setNewContact] = useState({ name: "", number: "" });
-  const [showAll, setShowAll] = useState(true);
+  // const [showAll, setShowAll] = useState(true);
   const [filterPattern, setFilterPattern] = useState("");
 
   const resetNewContact = () => setNewContact({ name: "", number: "" });
 
-  const personsToShow = showAll
-    ? persons
-    : persons.filter((person) =>
-        person.name.toLowerCase().includes(filterPattern.trim().toLowerCase())
-      );
+  const personsToShow = persons.filter((person) =>
+    person.name.toLowerCase().includes(filterPattern)
+  );
 
   const addEntry = (event) => {
     event.preventDefault();
@@ -73,17 +71,7 @@ const App = () => {
   };
 
   const handleFilterInputChange = (event) => {
-    setFilterPattern(event.target.value);
-    if (!showAll) setShowAll(true);
-  };
-
-  const applyFilter = () => {
-    setShowAll(false);
-  };
-
-  const discardFilter = () => {
-    setShowAll(true);
-    setFilterPattern("");
+    setFilterPattern(event.target.value.trim().toLowerCase());
   };
 
   return (
@@ -101,8 +89,8 @@ const App = () => {
       <ContactFilter
         filterValue={filterPattern}
         onFilterInputChange={handleFilterInputChange}
-        onApplyFilter={applyFilter}
-        onDiscardFilter={discardFilter}
+        // onApplyFilter={applyFilter}
+        // onDiscardFilter={discardFilter}
       />
       <Persons persons={personsToShow} />
     </>

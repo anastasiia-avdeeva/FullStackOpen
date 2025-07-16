@@ -1,5 +1,4 @@
 import { InputGroup } from "./InputGroup";
-import { Button } from "./button";
 
 export const ContactFilter = (props) => {
   return (
@@ -14,8 +13,6 @@ export const ContactFilter = (props) => {
           onChange: props.onFilterInputChange,
         }}
       />
-      <Button text="Apply filter" onClick={props.onApplyFilter} />
-      <Button text="Discard filter" onClick={props.onDiscardFilter} />
     </div>
   );
 };
