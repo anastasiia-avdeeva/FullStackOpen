@@ -88,8 +88,6 @@ const App = () => {
       <ContactFilter
         filterValue={filterPattern}
         onFilterInputChange={handleFilterInputChange}
-        // onApplyFilter={applyFilter}
-        // onDiscardFilter={discardFilter}
       />
       <Persons persons={personsToShow} />
     </>
