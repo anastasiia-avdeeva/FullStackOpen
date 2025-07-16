@@ -12,11 +12,11 @@ const App = () => {
 
   const resetNewContact = () => setNewContact({ name: "", number: "" });
 
-  const personsToShow = !appliedFilter
-    ? persons
-    : persons.filter((person) =>
+  const personsToShow = appliedFilter
+    ? persons.filter((person) =>
         person.name.toLowerCase().includes(appliedFilter)
-      );
+      )
+    : persons;
 
   const addEntry = (event) => {
     event.preventDefault();
