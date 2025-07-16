@@ -7,7 +7,6 @@ import { Persons } from "./components/Persons";
 const App = () => {
   const [persons, setPersons] = useState(personsInfo);
   const [newContact, setNewContact] = useState({ name: "", number: "" });
-  // const [showAll, setShowAll] = useState(true);
   const [filterPattern, setFilterPattern] = useState("");
 
   const resetNewContact = () => setNewContact({ name: "", number: "" });
