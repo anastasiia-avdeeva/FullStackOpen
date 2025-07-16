@@ -7,16 +7,17 @@ import { Persons } from "./components/Persons";
 const App = () => {
   const [persons, setPersons] = useState(personsInfo);
   const [newContact, setNewContact] = useState({ name: "", number: "" });
+  const [showAll, setShowAll] = useState(true);
   const [filterPattern, setFilterPattern] = useState("");
-  const [appliedFilter, setAppliedFilter] = useState("");
+  // const [appliedFilter, setAppliedFilter] = useState("");
 
   const resetNewContact = () => setNewContact({ name: "", number: "" });
 
-  const personsToShow = appliedFilter
-    ? persons.filter((person) =>
-        person.name.toLowerCase().includes(appliedFilter)
-      )
-    : persons;
+  const personsToShow = showAll
+    ? persons
+    : persons.filter((person) =>
+        person.name.toLowerCase().includes(filterPattern.trim().toLowerCase())
+      );
 
   const addEntry = (event) => {
     event.preventDefault();
@@ -74,15 +75,19 @@ const App = () => {
 
   const handleFilterInputChange = (event) => {
     setFilterPattern(event.target.value);
+    if (!showAll) setShowAll(true);
   };
 
   const applyFilter = () => {
-    setAppliedFilter(filterPattern.trim().toLowerCase());
-    setFilterPattern("");
+    // setAppliedFilter(filterPattern.trim().toLowerCase());
+    // setFilterPattern("");
+    setShowAll(false);
   };
 
   const discardFilter = () => {
-    setAppliedFilter("");
+    // setAppliedFilter("");
+    setShowAll(true);
+    setFilterPattern("");
   };
 
   return (
