@@ -4,11 +4,13 @@ import { ContactFilter } from "./components/ContactFilter";
 import { Persons } from "./components/Persons";
 import personsService from "./services/persons";
 import helpers from "./utils/helpers";
+import { ErrorMsg } from "./components/ErrorMsg";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newPerson, setNewPerson] = useState({ name: "", number: "" });
   const [filterPattern, setFilterPattern] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const resetNewPerson = () => setNewPerson({ name: "", number: "" });
 
@@ -17,9 +19,15 @@ const App = () => {
   );
 
   useEffect(() => {
-    personsService.getAllPersons().then((initialPersons) => {
-      setPersons(initialPersons);
-    });
+    personsService
+      .getAllPersons()
+      .then((initialPersons) => {
+        setPersons(initialPersons);
+      })
+      .catch((error) => {
+        console.log("Cannot fetch contacts list ", error);
+        setErrorMsg("Ooops, something went wrong. Please, try again later!");
+      });
   }, []);
 
   const handleAddBtnClick = (evt) => {
@@ -45,9 +53,14 @@ const App = () => {
 
     personsService
       .createPerson(newPersonObj)
-      .then((returnedPerson) => setPersons(persons.concat(returnedPerson)));
-
-    resetNewPerson();
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        resetNewPerson();
+      })
+      .catch((error) => {
+        console.log("Cannot post new person to the server ", error);
+        alert("Unable to add new contact. Please, try again later");
+      });
   };
 
   const confirmAndUpdatePerson = () => {
@@ -61,14 +74,18 @@ const App = () => {
       const changedPersonObj = { ...oldPersonObj, number: newPerson.number };
       personsService
         .updatePerson(changedPersonObj)
-        .then((returnedPerson) =>
+        .then((returnedPerson) => {
           setPersons(
             persons.map((person) =>
               person.id === id ? returnedPerson : person
             )
-          )
-        );
-      resetNewPerson();
+          );
+          resetNewPerson();
+        })
+        .catch((error) => {
+          console.log("Cannot put changed contact to the server ", error);
+          alert("Unable to change the contact. Please, try again later");
+        });
     }
   };
 
@@ -97,7 +114,12 @@ const App = () => {
         .deletePerson(personId)
         .then((deletedId) =>
           setPersons(persons.filter((person) => person.id !== deletedId))
-        );
+        )
+        .catch((error) => {
+          console.log("Cannot delete person ", error);
+          alert(`${name}'s contact has already been deleted from the server`);
+          setPersons(persons.filter((person) => person.id !== personId));
+        });
     }
   };
 
@@ -113,10 +135,14 @@ const App = () => {
         onPhoneInputChange={handlePhoneInputChange}
       />
       <h2>Contacts</h2>
-      <ContactFilter
-        filterValue={filterPattern}
-        onFilterInputChange={handleFilterInputChange}
-      />
+      {errorMsg ? (
+        <ErrorMsg errorText={errorMsg} />
+      ) : (
+        <ContactFilter
+          filterValue={filterPattern}
+          onFilterInputChange={handleFilterInputChange}
+        />
+      )}
       <Persons persons={personsToShow} onDelete={handleDelete} />
     </>
   );
