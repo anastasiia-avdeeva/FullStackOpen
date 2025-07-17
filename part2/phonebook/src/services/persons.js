@@ -33,10 +33,7 @@ const updatePerson = (changedPersonObj) => {
     `${baseURL}/${changedPersonObj.id}`,
     changedPersonObj
   );
-  return request.then((response) => {
-    console.log(response.data);
-    return response.data;
-  });
+  return request.then((response) => response.data);
 };
 
 export default { getAllPersons, createPerson, deletePerson, updatePerson };
