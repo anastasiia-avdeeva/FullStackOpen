@@ -2,13 +2,13 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3001/persons";
 
-const getAllContacts = () => {
+const getAllPersons = () => {
   const request = axios.get(baseURL);
   return request.then((response) => response.data);
 };
 
-const addContact = (newContact) => {
-  const request = axios.post(baseURL, newContact);
+const createPerson = (newPerson) => {
+  const request = axios.post(baseURL, newPerson);
   return request.then((response) => response.data);
   //   return request.then((response) => {
   //     console.log(response.data);
@@ -16,12 +16,11 @@ const addContact = (newContact) => {
   //   });
 };
 
-const deleteContact = (contactId) => {
-  const request = axios.delete(`${baseURL}/${contactId}`);
+const deletePerson = (personId) => {
+  const request = axios.delete(`${baseURL}/${personId}`);
   return request.then((response) => {
-    console.log(response);
     console.log("Response status", response.status);
-    return contactId;
+    return personId;
   });
   //   return request.then((response) => {
   //     console.log(response.data);
@@ -29,4 +28,8 @@ const deleteContact = (contactId) => {
   //   });
 };
 
-export default { getAllContacts, addContact, deleteContact };
+// const updatePerson = (personName, newNumber) => {
+//     return;
+// }
+
+export default { getAllPersons, createPerson, deletePerson };
