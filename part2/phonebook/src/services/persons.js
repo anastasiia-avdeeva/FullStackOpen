@@ -28,8 +28,15 @@ const deletePerson = (personId) => {
   //   });
 };
 
-// const updatePerson = (personName, newNumber) => {
-//     return;
-// }
+const updatePerson = (changedPersonObj) => {
+  const request = axios.put(
+    `${baseURL}/${changedPersonObj.id}`,
+    changedPersonObj
+  );
+  return request.then((response) => {
+    console.log(response.data);
+    return response.data;
+  });
+};
 
-export default { getAllPersons, createPerson, deletePerson };
+export default { getAllPersons, createPerson, deletePerson, updatePerson };

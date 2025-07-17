@@ -17,31 +17,27 @@ const App = () => {
   );
 
   useEffect(() => {
-    personsService.getAllPersons().then((persons) => {
-      setPersons(persons);
+    personsService.getAllPersons().then((initialPersons) => {
+      setPersons(initialPersons);
     });
   }, []);
 
-  const handleAddPerson = (event) => {
-    event.preventDefault();
+  const handleAddBtnClick = (evt) => {
+    evt.preventDefault();
 
     if (!newPerson.name || !newPerson.number) {
       alert("Please, fill in all fields");
-      return;
-    }
-
-    if (helpers.isNameInPersons(persons, newPerson.name)) {
-      alert(`${newPerson.name} is already in the phonebook`);
-      resetNewPerson();
-      return;
-    }
-
-    if (helpers.isNumberInPersons(persons, newPerson.number)) {
+    } else if (helpers.isNameInPersons(persons, newPerson.name)) {
+      confirmAndUpdatePerson();
+    } else if (helpers.isNumberInPersons(persons, newPerson.number)) {
       alert(`${newPerson.number} is already in the phonebook`);
       resetNewPerson();
-      return;
+    } else {
+      addNewPerson();
     }
+  };
 
+  const addNewPerson = () => {
     const newPersonObj = {
       name: newPerson.name,
       number: newPerson.number,
@@ -49,11 +45,31 @@ const App = () => {
 
     personsService
       .createPerson(newPersonObj)
-      .then((newPersonFromResponse) =>
-        setPersons(persons.concat(newPersonFromResponse))
-      );
+      .then((returnedPerson) => setPersons(persons.concat(returnedPerson)));
 
     resetNewPerson();
+  };
+
+  const confirmAndUpdatePerson = () => {
+    if (
+      window.confirm(
+        `${newPerson.name} is already on the phonebook. Would you like replace the phone number with the new one?`
+      )
+    ) {
+      const oldPersonObj = helpers.findPersonByName(persons, newPerson.name);
+      const id = oldPersonObj.id;
+      const changedPersonObj = { ...oldPersonObj, number: newPerson.number };
+      personsService
+        .updatePerson(changedPersonObj)
+        .then((returnedPerson) =>
+          setPersons(
+            persons.map((person) =>
+              person.id === id ? returnedPerson : person
+            )
+          )
+        );
+      resetNewPerson();
+    }
   };
 
   const handleNameInputChange = (event) => {
@@ -74,11 +90,11 @@ const App = () => {
     setFilterPattern(event.target.value.trim().toLowerCase());
   };
 
-  const handleDelete = (contactId) => {
-    const name = helpers.findNameById(persons, contactId);
+  const handleDelete = (personId) => {
+    const name = helpers.findPersonById(persons, personId).name;
     if (window.confirm(`Are you sure you want to delete ${name}'s contact?`)) {
       personsService
-        .deletePerson(contactId)
+        .deletePerson(personId)
         .then((deletedId) =>
           setPersons(persons.filter((person) => person.id !== deletedId))
         );
@@ -90,7 +106,7 @@ const App = () => {
       <h1>Phonebook</h1>
       <h2>Add new contact</h2>
       <PersonForm
-        onAddPerson={handleAddPerson}
+        onAddPerson={handleAddBtnClick}
         newName={newPerson.name}
         onNameInputChange={handleNameInputChange}
         newNumber={newPerson.number}
