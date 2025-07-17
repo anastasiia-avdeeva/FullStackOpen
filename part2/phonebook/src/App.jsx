@@ -3,6 +3,7 @@ import { PersonForm } from "./components/PersonForm";
 import { ContactFilter } from "./components/ContactFilter";
 import { Persons } from "./components/Persons";
 import personsService from "./services/persons";
+import helpers from "./utils/helpers";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -59,7 +60,7 @@ const App = () => {
     };
 
     personsService
-      .addNewContact(newContactObj)
+      .addContact(newContactObj)
       .then((newContact) => setPersons(persons.concat(newContact)));
 
     resetNewContact();
@@ -80,6 +81,17 @@ const App = () => {
     setFilterPattern(event.target.value.trim().toLowerCase());
   };
 
+  const handleDelete = (contactId) => {
+    const name = helpers.findNameById(persons, contactId);
+    if (window.confirm(`Are you sure you want to delete ${name}'s contact?`)) {
+      personsService
+        .deleteContact(contactId)
+        .then((deletedId) =>
+          setPersons(persons.filter((person) => person.id !== deletedId))
+        );
+    }
+  };
+
   return (
     <>
       <h1>Phonebook</h1>
@@ -96,7 +108,7 @@ const App = () => {
         filterValue={filterPattern}
         onFilterInputChange={handleFilterInputChange}
       />
-      <Persons persons={personsToShow} />
+      <Persons persons={personsToShow} onDelete={handleDelete} />
     </>
   );
 };
