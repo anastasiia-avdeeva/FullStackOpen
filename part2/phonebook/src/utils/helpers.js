@@ -1,11 +1,9 @@
-const findNameById = (persons, id) => {
-  const target = persons.find((person) => person.id === id);
-  return target.name;
+const findPersonById = (persons, id) => {
+  return persons.find((person) => person.id === id);
 };
 
-const findIdByName = (persons, name) => {
-  const target = persons.find((person) => person.name === name);
-  return target.id;
+const findPersonByName = (persons, name) => {
+  return persons.find((person) => person.name === name);
 };
 
 const isNameInPersons = (persons, name) => {
@@ -21,8 +19,8 @@ const isNumberInPersons = (persons, number) => {
 // };
 
 export default {
-  findNameById,
-  findIdByName,
+  findPersonById,
+  findPersonByName,
   //   isValueInPersons,
   isNameInPersons,
   isNumberInPersons,
