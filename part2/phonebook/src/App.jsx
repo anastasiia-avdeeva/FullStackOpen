@@ -47,7 +47,7 @@ const App = () => {
 
   const addNewPerson = () => {
     const newPersonObj = {
-      name: newPerson.name,
+      name: newPerson.name.trim(),
       number: newPerson.number,
     };
 
@@ -90,8 +90,11 @@ const App = () => {
   };
 
   const handleNameInputChange = (event) => {
-    const newName = event.target.value.trim();
-    setNewPerson((prevPersonInfo) => ({ ...prevPersonInfo, name: newName }));
+    const newName = event.target.value;
+    setNewPerson((prevPersonInfo) => ({
+      ...prevPersonInfo,
+      name: newName,
+    }));
   };
 
   const handlePhoneInputChange = (event) => {

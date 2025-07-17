@@ -11,7 +11,6 @@ export const PersonForm = (props) => {
           id: "nameInput",
           name: "name",
           value: props.newName,
-          // required: true,
           onChange: props.onNameInputChange,
         }}
       />
@@ -24,7 +23,6 @@ export const PersonForm = (props) => {
           minLength: "3",
           maxLength: "20",
           value: props.newNumber,
-          // required: true,
           onChange: props.onPhoneInputChange,
         }}
       />
