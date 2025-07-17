@@ -2,15 +2,17 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3001/persons";
 
-const getAllPersons = () => {
-  const request = axios.get(baseURL);
-  return request.then((response) => response.data);
-};
+const getResponseData = (request) => request.then((response) => response.data);
 
-const createPerson = (newPerson) => {
-  const request = axios.post(baseURL, newPerson);
-  return request.then((response) => response.data);
-};
+const getAllPersons = () => getResponseData(axios.get(baseURL));
+
+const createPerson = (newPerson) =>
+  getResponseData(axios.post(baseURL, newPerson));
+
+const updatePerson = (changedPersonObj) =>
+  getResponseData(
+    axios.put(`${baseURL}/${changedPersonObj.id}`, changedPersonObj)
+  );
 
 const deletePerson = (personId) => {
   const request = axios.delete(`${baseURL}/${personId}`);
@@ -20,12 +22,4 @@ const deletePerson = (personId) => {
   });
 };
 
-const updatePerson = (changedPersonObj) => {
-  const request = axios.put(
-    `${baseURL}/${changedPersonObj.id}`,
-    changedPersonObj
-  );
-  return request.then((response) => response.data);
-};
-
-export default { getAllPersons, createPerson, deletePerson, updatePerson };
+export default { getAllPersons, createPerson, updatePerson, deletePerson };
