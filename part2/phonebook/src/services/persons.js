@@ -10,10 +10,6 @@ const getAllPersons = () => {
 const createPerson = (newPerson) => {
   const request = axios.post(baseURL, newPerson);
   return request.then((response) => response.data);
-  //   return request.then((response) => {
-  //     console.log(response.data);
-  //     return response.data;
-  //   });
 };
 
 const deletePerson = (personId) => {
@@ -22,10 +18,6 @@ const deletePerson = (personId) => {
     console.log("Response status", response.status);
     return personId;
   });
-  //   return request.then((response) => {
-  //     console.log(response.data);
-  //     return response.data;
-  //   });
 };
 
 const updatePerson = (changedPersonObj) => {
