@@ -5,7 +5,7 @@ const findNameById = (persons, id) => {
 
 const findIdByName = (persons, name) => {
   const target = persons.find((person) => person.name === name);
-  return target.name;
+  return target.id;
 };
 
 const isNameInPersons = (persons, name) => {
