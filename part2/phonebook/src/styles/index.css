@@ -68,6 +68,8 @@ h2 {
 
 .input {
   padding: 2px 5px;
+  border-radius: 6px;
+  border: 1.5px solid lightgray;
 }
 
 .error {
@@ -95,6 +97,10 @@ h2 {
   flex-direction: row;
   align-items: center;
   gap: 7px;
+}
+
+.person-info {
+  font-size: 17px;
 }
 
 .del-btn {
