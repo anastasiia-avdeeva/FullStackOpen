@@ -2,7 +2,7 @@ import { InputGroup } from "./InputGroup";
 
 export const ContactFilter = (props) => {
   return (
-    <div>
+    <div className="person-filter">
       <InputGroup
         labelText="Filter contacts: "
         inputProps={{

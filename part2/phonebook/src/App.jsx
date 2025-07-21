@@ -4,7 +4,7 @@ import { ContactFilter } from "./components/ContactFilter";
 import { Persons } from "./components/Persons";
 import personsService from "./services/persons";
 import helpers from "./utils/helpers";
-import { ErrorMsg } from "./components/ErrorMsg";
+import { Notification } from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -26,7 +26,7 @@ const App = () => {
       })
       .catch((error) => {
         console.log("Cannot fetch contacts list ", error);
-        setErrorMsg("Ooops, something went wrong. Please, try again later!");
+        setErrorMsg("Cannot download contacts 😞 Please, try again later!");
       });
   }, []);
 
@@ -128,25 +128,27 @@ const App = () => {
 
   return (
     <>
-      <h1>Phonebook</h1>
-      <h2>Add new contact</h2>
-      <PersonForm
-        onAddPerson={handleAddBtnClick}
-        newName={newPerson.name}
-        onNameInputChange={handleNameInputChange}
-        newNumber={newPerson.number}
-        onPhoneInputChange={handlePhoneInputChange}
-      />
-      <h2>Contacts</h2>
-      {errorMsg ? (
-        <ErrorMsg errorText={errorMsg} />
-      ) : (
-        <ContactFilter
-          filterValue={filterPattern}
-          onFilterInputChange={handleFilterInputChange}
+      <h1 className="title">Phonebook</h1>
+      <div className="content">
+        <h2 className="subtitle">Add new contact:</h2>
+        <PersonForm
+          onAddPerson={handleAddBtnClick}
+          newName={newPerson.name}
+          onNameInputChange={handleNameInputChange}
+          newNumber={newPerson.number}
+          onPhoneInputChange={handlePhoneInputChange}
         />
-      )}
-      <Persons persons={personsToShow} onDelete={handleDelete} />
+        <h2 className="subtitle">Contacts:</h2>
+        {errorMsg ? (
+          <Notification className="error" text={errorMsg} />
+        ) : (
+          <ContactFilter
+            filterValue={filterPattern}
+            onFilterInputChange={handleFilterInputChange}
+          />
+        )}
+        <Persons persons={personsToShow} onDelete={handleDelete} />
+      </div>
     </>
   );
 };

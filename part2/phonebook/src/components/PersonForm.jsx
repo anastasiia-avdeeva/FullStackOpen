@@ -3,9 +3,9 @@ import { Button } from "./button";
 
 export const PersonForm = (props) => {
   return (
-    <form onSubmit={props.onAddPerson}>
+    <form className="person-form" onSubmit={props.onAddPerson}>
       <InputGroup
-        labelText="Name: "
+        labelText="Contact name: "
         inputProps={{
           type: "text",
           id: "nameInput",
@@ -26,7 +26,7 @@ export const PersonForm = (props) => {
           onChange: props.onPhoneInputChange,
         }}
       />
-      <Button text="add contact" type="submit" />
+      <Button text="add" type="submit" className="btn add-btn" />
     </form>
   );
 };

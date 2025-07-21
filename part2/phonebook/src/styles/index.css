@@ -28,40 +28,75 @@ h2 {
 }
 
 .title {
-  padding: 20px;
-  text-align: center;
+  margin: 10px 20px;
   text-decoration: underline;
 }
 
 .content {
-  width: 95%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
+  margin: 0px 20px 10px;
 }
 
 .subtitle {
-  padding: 10px 0px;
+  margin: 10px 0px;
 }
 
-.all-persons,
-.add-person,
-.person-form,
-.person-list {
+.btn {
+  width: 60px;
+  padding: 4px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.person-form {
   display: flex;
   flex-direction: column;
-  font-size: 22px;
-}
-
-.all-persons,
-.add-person,
-.person-form {
-  gap: 15px;
-}
-
-.person-list {
   gap: 10px;
+}
+
+.add-btn {
+  background-color: rgb(91, 149, 91);
+}
+
+.label {
+  font-style: italic;
+}
+
+.input {
+  padding: 2px 5px;
+}
+
+.error {
+  padding: 10px 0px;
+  border: 1.5px solid red;
+  background-color: rgb(244, 241, 237);
+  text-align: center;
+  font-size: 23px;
+  font-weight: bold;
+  color: rgb(197, 26, 26);
+}
+
+.person-filter {
+  margin-bottom: 15px;
+}
+
+.persons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.person {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+
+.del-btn {
+  background-color: rgb(206, 114, 114);
 }

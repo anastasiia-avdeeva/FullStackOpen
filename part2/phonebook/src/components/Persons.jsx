@@ -2,7 +2,7 @@ import { Person } from "./Person";
 
 export const Persons = ({ persons, onDelete }) => {
   return (
-    <ul>
+    <ul className="persons">
       {persons.map((person) => (
         <Person
           key={person.id}
