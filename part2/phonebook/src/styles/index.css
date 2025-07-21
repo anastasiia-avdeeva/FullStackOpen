@@ -28,7 +28,7 @@ h2 {
 }
 
 .title {
-  margin: 10px 20px;
+  margin: 20px;
   text-decoration: underline;
 }
 
@@ -53,6 +53,7 @@ h2 {
 }
 
 .person-form {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
