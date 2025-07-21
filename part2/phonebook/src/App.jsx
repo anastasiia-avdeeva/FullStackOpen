@@ -114,7 +114,7 @@ const App = () => {
   };
 
   const handlePhoneInputChange = (event) => {
-    const pattern = /[^\d+-]/g;
+    const pattern = /[^\d-]/g;
     const newNumber = event.target.value.replace(pattern, "");
     setNewPerson((prevPersonInfo) => ({
       ...prevPersonInfo,
