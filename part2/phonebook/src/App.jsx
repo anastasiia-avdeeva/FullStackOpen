@@ -27,6 +27,7 @@ const App = () => {
       })
       .catch((error) => {
         console.log("Cannot fetch contacts list ", error);
+        setPersons([]);
         const erMsg = "Cannot download contacts 😞 Please, try again later!";
         setPersonsMsg({ text: erMsg, type: "error" });
       });
