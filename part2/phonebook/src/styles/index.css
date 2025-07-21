@@ -73,16 +73,6 @@ h2 {
   border: 1.5px solid lightgray;
 }
 
-.error {
-  padding: 10px 0px;
-  border: 1.5px solid red;
-  background-color: rgb(244, 241, 237);
-  text-align: center;
-  font-size: 23px;
-  font-weight: bold;
-  color: rgb(197, 26, 26);
-}
-
 .person-filter {
   margin-bottom: 15px;
 }
@@ -106,4 +96,23 @@ h2 {
 
 .del-btn {
   background-color: rgb(206, 114, 114);
+}
+
+.notification {
+  margin: 10px 0px;
+  padding: 10px 0px;
+  background-color: rgb(233, 237, 234);
+  text-align: center;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.error {
+  border: 1.5px solid red;
+  color: rgb(197, 26, 26);
+}
+
+.success {
+  border: 1.5px solid rgb(23, 147, 23);
+  color: rgb(42, 107, 42);
 }

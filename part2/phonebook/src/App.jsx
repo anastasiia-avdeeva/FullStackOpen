@@ -10,7 +10,8 @@ const App = () => {
   const [persons, setPersons] = useState([]);
   const [newPerson, setNewPerson] = useState({ name: "", number: "" });
   const [filterPattern, setFilterPattern] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [successMsg, setSuccessMsg] = useState(null);
 
   const resetNewPerson = () => setNewPerson({ name: "", number: "" });
 
@@ -54,6 +55,9 @@ const App = () => {
     personsService
       .createPerson(newPersonObj)
       .then((returnedPerson) => {
+        notifySuccess(
+          `${newPersonObj.name}'s contact has been successfully saved`
+        );
         setPersons(persons.concat(returnedPerson));
         resetNewPerson();
       })
@@ -66,15 +70,19 @@ const App = () => {
   const confirmAndUpdatePerson = () => {
     if (
       window.confirm(
-        `${newPerson.name} is already on the phonebook. Would you like replace the phone number with the new one?`
+        `${newPerson.name} is already on the phonebook. Would you like to replace the phone number with the new one?`
       )
     ) {
       const oldPersonObj = helpers.findPersonByName(persons, newPerson.name);
       const id = oldPersonObj.id;
       const changedPersonObj = { ...oldPersonObj, number: newPerson.number };
+
       personsService
         .updatePerson(changedPersonObj)
         .then((returnedPerson) => {
+          notifySuccess(
+            `${oldPersonObj.name}'s contact has been successfully updated`
+          );
           setPersons(
             persons.map((person) =>
               person.id === id ? returnedPerson : person
@@ -87,6 +95,11 @@ const App = () => {
           alert("Unable to change the contact. Please, try again later");
         });
     }
+  };
+
+  const notifySuccess = (msgText) => {
+    setSuccessMsg(msgText);
+    setTimeout(() => setSuccessMsg(null), 3000);
   };
 
   const handleNameInputChange = (event) => {
@@ -120,7 +133,12 @@ const App = () => {
         )
         .catch((error) => {
           console.log("Cannot delete person ", error);
-          alert(`${name}'s contact has already been deleted from the server`);
+          setErrorMsg(
+            `${name}'s contact has already been deleted from the server`
+          );
+          setTimeout(() => {
+            setErrorMsg(null);
+          }, 3000);
           setPersons(persons.filter((person) => person.id !== personId));
         });
     }
@@ -138,15 +156,13 @@ const App = () => {
           newNumber={newPerson.number}
           onPhoneInputChange={handlePhoneInputChange}
         />
+        <Notification className="success" msg={successMsg} />
         <h2 className="subtitle">Contacts:</h2>
-        {errorMsg ? (
-          <Notification className="error" text={errorMsg} />
-        ) : (
-          <ContactFilter
-            filterValue={filterPattern}
-            onFilterInputChange={handleFilterInputChange}
-          />
-        )}
+        <ContactFilter
+          filterValue={filterPattern}
+          onFilterInputChange={handleFilterInputChange}
+        />
+        <Notification className="error" msg={errorMsg} />
         <Persons persons={personsToShow} onDelete={handleDelete} />
       </div>
     </>

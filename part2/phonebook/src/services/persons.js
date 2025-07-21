@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseURL = "http://localhost:3001/persons";
-// const wrongURL = "http://localhost:3001/p";
+const wrongURL = "http://localhost:3001/p";
 
 const getResponseData = (request) => request.then((response) => response.data);
 
