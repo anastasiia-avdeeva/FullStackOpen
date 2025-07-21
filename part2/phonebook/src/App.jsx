@@ -10,8 +10,8 @@ const App = () => {
   const [persons, setPersons] = useState([]);
   const [newPerson, setNewPerson] = useState({ name: "", number: "" });
   const [filterPattern, setFilterPattern] = useState("");
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [successMsg, setSuccessMsg] = useState(null);
+  const [formMsg, setFormMsg] = useState(null);
+  const [personsMsg, setPersonsMsg] = useState(null);
 
   const resetNewPerson = () => setNewPerson({ name: "", number: "" });
 
@@ -27,7 +27,8 @@ const App = () => {
       })
       .catch((error) => {
         console.log("Cannot fetch contacts list ", error);
-        setErrorMsg("Cannot download contacts 😞 Please, try again later!");
+        const erMsg = "Cannot download contacts 😞 Please, try again later!";
+        setPersonsMsg({ text: erMsg, type: "error" });
       });
   }, []);
 
@@ -55,15 +56,15 @@ const App = () => {
     personsService
       .createPerson(newPersonObj)
       .then((returnedPerson) => {
-        notifySuccess(
-          `${newPersonObj.name}'s contact has been successfully saved`
-        );
+        const msg = `${newPersonObj.name}'s contact is successfully saved`;
+        notifyUserShortly(setFormMsg, msg);
         setPersons(persons.concat(returnedPerson));
         resetNewPerson();
       })
       .catch((error) => {
         console.log("Cannot post new person to the server ", error);
-        alert("Unable to add new contact. Please, try again later");
+        const msg = "Unable to add new contact. Please, try again later";
+        notifyUserShortly(setFormMsg, msg, "error");
       });
   };
 
@@ -80,9 +81,8 @@ const App = () => {
       personsService
         .updatePerson(changedPersonObj)
         .then((returnedPerson) => {
-          notifySuccess(
-            `${oldPersonObj.name}'s contact has been successfully updated`
-          );
+          const msg = `${oldPersonObj.name}'s contact is successfully updated`;
+          notifyUserShortly(setFormMsg, msg);
           setPersons(
             persons.map((person) =>
               person.id === id ? returnedPerson : person
@@ -92,14 +92,16 @@ const App = () => {
         })
         .catch((error) => {
           console.log("Cannot put changed contact to the server ", error);
-          alert("Unable to change the contact. Please, try again later");
+          const msg = `${oldPersonObj.name}'s contact has been removed from the server`;
+          notifyUserShortly(setFormMsg, msg, "error");
+          setPersons(persons.filter((person) => person.id !== id));
         });
     }
   };
 
-  const notifySuccess = (msgText) => {
-    setSuccessMsg(msgText);
-    setTimeout(() => setSuccessMsg(null), 3000);
+  const notifyUserShortly = (setFn, text, type = "success") => {
+    setFn({ text, type });
+    setTimeout(() => setFn(null), 3000);
   };
 
   const handleNameInputChange = (event) => {
@@ -128,17 +130,15 @@ const App = () => {
     if (window.confirm(`Are you sure you want to delete ${name}'s contact?`)) {
       personsService
         .deletePerson(personId)
-        .then((deletedId) =>
-          setPersons(persons.filter((person) => person.id !== deletedId))
-        )
+        .then((deletedId) => {
+          const msg = `${name}'s contact is successfully deleted from the server`;
+          notifyUserShortly(setPersonsMsg, msg);
+          setPersons(persons.filter((person) => person.id !== deletedId));
+        })
         .catch((error) => {
           console.log("Cannot delete person ", error);
-          setErrorMsg(
-            `${name}'s contact has already been deleted from the server`
-          );
-          setTimeout(() => {
-            setErrorMsg(null);
-          }, 3000);
+          const msg = `${name}'s contact has already been removed from the server`;
+          notifyUserShortly(setPersonsMsg, msg, "error");
           setPersons(persons.filter((person) => person.id !== personId));
         });
     }
@@ -156,13 +156,17 @@ const App = () => {
           newNumber={newPerson.number}
           onPhoneInputChange={handlePhoneInputChange}
         />
-        <Notification className="success" msg={successMsg} />
+        {formMsg && (
+          <Notification className={formMsg.type} msg={formMsg.text} />
+        )}
         <h2 className="subtitle">Contacts:</h2>
         <ContactFilter
           filterValue={filterPattern}
           onFilterInputChange={handleFilterInputChange}
         />
-        <Notification className="error" msg={errorMsg} />
+        {personsMsg && (
+          <Notification className={personsMsg.type} msg={personsMsg.text} />
+        )}
         <Persons persons={personsToShow} onDelete={handleDelete} />
       </div>
     </>
