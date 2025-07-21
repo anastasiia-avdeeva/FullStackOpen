@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style: none;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+.title {
+  padding: 20px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.content {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.subtitle {
+  padding: 10px 0px;
+}
+
+.all-persons,
+.add-person,
+.person-form,
+.person-list {
+  display: flex;
+  flex-direction: column;
+  font-size: 22px;
+}
+
+.all-persons,
+.add-person,
+.person-form {
+  gap: 15px;
+}
+
+.person-list {
+  gap: 10px;
+}
