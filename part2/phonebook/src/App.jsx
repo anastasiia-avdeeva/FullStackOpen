@@ -22,8 +22,8 @@ const App = () => {
   useEffect(() => {
     personsService
       .getAllPersons()
-      .then((initialPersons) => {
-        setPersons(initialPersons);
+      .then((newPersons) => {
+        setPersons(newPersons);
       })
       .catch((error) => {
         console.log("Cannot fetch contacts list ", error);
