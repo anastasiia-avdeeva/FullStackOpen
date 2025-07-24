@@ -1,7 +1,24 @@
+import { useState } from "react";
 import { Country } from "./Country";
 import { ErrorMsg } from "./ErrorMsg";
 
 export const Countries = ({ countries }) => {
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const handleShowBtnClick = (cca3) =>
+    setSelectedCountry(countries.find((country) => country.cca3 === cca3));
+
+  const handleBackBtnClick = () => setSelectedCountry(null);
+
+  if (selectedCountry) {
+    return (
+      <div>
+        <button onClick={handleBackBtnClick}>Back</button>
+        <Country info={selectedCountry} />
+      </div>
+    );
+  }
+
   let errorMsg = "";
 
   if (countries.length === 0) {
@@ -17,7 +34,12 @@ export const Countries = ({ countries }) => {
       ) : countries.length > 1 ? (
         <ul>
           {countries.map((country) => (
-            <li key={country.cca3}>{country.name.common}</li>
+            <li key={country.cca3}>
+              {country.name.common}{" "}
+              <button onClick={() => handleShowBtnClick(country.cca3)}>
+                Show
+              </button>
+            </li>
           ))}
         </ul>
       ) : (

@@ -2,7 +2,6 @@ import { FlagImg } from "./FlagImg";
 import { LanguagesList } from "./LanguagesList";
 
 export const Country = ({ info }) => {
-  console.log(info.languages);
   const langArray = Object.values(info.languages);
   return (
     <div>
