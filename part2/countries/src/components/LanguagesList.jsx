@@ -6,7 +6,7 @@ export const LanguagesList = ({ languages }) => {
       ) : (
         <ul>
           {languages.map((lang) => (
-            <li>{lang}</li>
+            <li key={lang}>{lang}</li>
           ))}
         </ul>
       )}
