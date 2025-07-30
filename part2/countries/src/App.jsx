@@ -13,15 +13,16 @@ function App() {
   );
 
   useEffect(() => {
-    countriesService.fetchAllCountries().then((newCountries) => {
-      setAllCountries(newCountries);
-    });
+    countriesService
+      .fetchAllCountries()
+      .then((newCountries) => setAllCountries(newCountries));
   }, []);
 
   const handleInputChange = (evt) => {
     const inputValue = evt.target.value;
     setUserSearchValue(inputValue);
   };
+
   return (
     <>
       <h1>Countries</h1>

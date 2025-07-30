@@ -1,16 +1,26 @@
-import { FlagImg } from "./FlagImg";
-import { LanguagesList } from "./LanguagesList";
+import { useState, useEffect } from "react";
+import weatherService from "../services/weather";
+import { CountryBasics } from "./CountryBasics";
+import { Weather } from "./Weather";
 
 export const Country = ({ info }) => {
+  const [weather, setWeather] = useState(null);
+  //   const [error, setError] = use(null);
+
   const langArray = Object.values(info.languages);
+
+  useEffect(() => {
+    weatherService
+      .getCapitalWeather(info.capital[0])
+      .then((weatherInfo) => setWeather(weatherInfo));
+  }, [info.capital]);
+
   return (
-    <div>
-      <h3>{info.name.common}</h3>
-      <p>Capital: {info.capital}</p>
-      <p>Area: {info.area}</p>
-      <h4>Languages:</h4>
-      <LanguagesList languages={langArray} />
-      <FlagImg flag={info.flags} />
-    </div>
+    <article>
+      <CountryBasics info={info} languages={langArray} />
+      {weather && (
+        <Weather weather={weather} weatherIconInfo={weather.weather[0]} />
+      )}
+    </article>
   );
 };
