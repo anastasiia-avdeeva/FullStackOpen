@@ -30,7 +30,11 @@ export const Countries = ({ countries, searchValue }) => {
     content = <Country info={countries[0]} />;
   } else if (countries.length > 10) {
     content = (
-      <ErrorMsg text={"Too many matches. Please, specify search request!"} />
+      <ErrorMsg
+        text={
+          "Too many countries matche the search. Please, specify search request!"
+        }
+      />
     );
   } else {
     content = (
