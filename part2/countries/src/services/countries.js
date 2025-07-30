@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const baseUrl = "https://studies.cs.helsinki.fi/restcountries/api/";
-const allCountriesURL = `${baseUrl}all`;
-const countryURL = `${baseUrl}name/`;
+const baseUrl = "https://studies.cs.helsinki.fi/restcountries/api";
+const allCountriesURL = `${baseUrl}/all`;
+// const countryURL = `${baseUrl}name/`;
 
 const fetchAllCountries = () => {
   const request = axios.get(allCountriesURL);
