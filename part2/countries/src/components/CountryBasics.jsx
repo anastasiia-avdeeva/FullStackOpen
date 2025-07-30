@@ -7,10 +7,7 @@ export const CountryBasics = ({ info, languages }) => {
       <h3>{info.name.common}</h3>
       <p>Capital: {info.capital};</p>
       <p>Area: {info.area};</p>
-      <div>
-        <h4>Languages:</h4>
-        <LanguagesList languages={languages} />
-      </div>
+      <LanguagesList languages={languages} />
       <ImageContainer imgSrc={info.flags.png} alt={info.flags.png} />
     </section>
   );
