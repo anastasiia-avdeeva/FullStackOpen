@@ -15,10 +15,10 @@ export const Countries = ({ countries, searchValue }) => {
 
   if (selectedCountry) {
     return (
-      <div>
+      <section>
         <button onClick={handleBackBtnClick}>Back</button>
         <Country info={selectedCountry} />
-      </div>
+      </section>
     );
   }
 
@@ -50,9 +50,9 @@ export const Countries = ({ countries, searchValue }) => {
   }
 
   return (
-    <div>
+    <section>
       <h2>Search results:</h2>
       {content}
-    </div>
+    </section>
   );
 };

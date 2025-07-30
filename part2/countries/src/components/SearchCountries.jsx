@@ -1,6 +1,6 @@
 export const SearchCountries = ({ value, onChange }) => {
   return (
-    <div>
+    <section>
       <h2>Search: </h2>
       <div>
         <label htmlFor="country-input">Find countries: </label>
@@ -12,6 +12,6 @@ export const SearchCountries = ({ value, onChange }) => {
           onChange={onChange}
         />
       </div>
-    </div>
+    </section>
   );
 };

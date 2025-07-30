@@ -27,7 +27,7 @@ export const Weather = ({ city }) => {
 
   return (
     <aside>
-      <h4>Weather in {city}</h4>
+      <h3>Weather in {city}</h3>
       {weatherError && <ErrorMsg text={weatherError} />}
       {weather && (
         <>
