@@ -28,8 +28,8 @@ h4 {
 }
 
 .title {
-  margin: 20px 0px;
-  text-align: center;
+  margin: 20px auto;
+  width: 90%;
 }
 
 .main {
@@ -99,11 +99,13 @@ h4 {
   gap: 7px;
 }
 
-.country__title {
+.country__title,
+.weather__title {
   font-size: 20px;
 }
 
-.country__info {
+.country__info,
+.weather__info {
   font-size: 18px;
 }
 
@@ -113,7 +115,7 @@ h4 {
 }
 
 .weather {
-  max-height: 220px;
+  max-height: 250px;
   max-width: 200px;
   padding: 10px;
   display: flex;
@@ -121,6 +123,6 @@ h4 {
   gap: 7px;
   border: 1px solid rgb(236, 241, 241);
   border-radius: 6px;
-  background-color: rgb(236, 241, 241);
+  background-color: rgb(222, 224, 224);
   text-align: center;
 }
