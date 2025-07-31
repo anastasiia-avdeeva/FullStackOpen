@@ -87,11 +87,10 @@ h4 {
 
 .country-weather {
   margin-top: 5px;
-  /* border: 1px solid black; */
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 50px;
+  /* justify-content: space-between; */
 }
 
 .country__content {
