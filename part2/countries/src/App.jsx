@@ -32,18 +32,23 @@ function App() {
 
   return (
     <>
-      <h1>Countries</h1>
-      {fetchError ? (
-        <ErrorMsg text={fetchError} />
-      ) : (
-        <>
-          <SearchCountries
-            value={userSearchValue}
-            onChange={handleInputChange}
-          />
-          <Countries countries={countriesShown} searchValue={userSearchValue} />
-        </>
-      )}
+      <h1 className="title">Countries</h1>
+      <main className="main">
+        {fetchError ? (
+          <ErrorMsg text={fetchError} className="fatal-countries" />
+        ) : (
+          <>
+            <SearchCountries
+              value={userSearchValue}
+              onChange={handleInputChange}
+            />
+            <Countries
+              countries={countriesShown}
+              searchValue={userSearchValue}
+            />
+          </>
+        )}
+      </main>
     </>
   );
 }

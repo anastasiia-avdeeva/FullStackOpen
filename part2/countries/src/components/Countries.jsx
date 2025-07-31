@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Country } from "./Country";
 import { ErrorMsg } from "./ErrorMsg";
+import { Button } from "./Button";
+import { CountriesList } from "./CountriesList";
 
 export const Countries = ({ countries, searchValue }) => {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -15,8 +17,8 @@ export const Countries = ({ countries, searchValue }) => {
 
   if (selectedCountry) {
     return (
-      <section>
-        <button onClick={handleBackBtnClick}>Back</button>
+      <section className="countries">
+        <Button onClick={handleBackBtnClick} text="Back" />
         <Country info={selectedCountry} />
       </section>
     );
@@ -32,26 +34,19 @@ export const Countries = ({ countries, searchValue }) => {
     content = (
       <ErrorMsg
         text={
-          "Too many countries matche the search. Please, specify search request!"
+          "Too many countries match the search. Please, specify the search request!"
         }
       />
     );
   } else {
     content = (
-      <ul>
-        {countries.map((country) => (
-          <li key={country.cca3}>
-            {country.name.common}{" "}
-            <button onClick={() => handleShowBtnClick(country)}>Show</button>
-          </li>
-        ))}
-      </ul>
+      <CountriesList countries={countries} onShow={handleShowBtnClick} />
     );
   }
 
   return (
-    <section>
-      <h2>Search results:</h2>
+    <section className="countries">
+      <h2 className="subtitle">Search results:</h2>
       {content}
     </section>
   );

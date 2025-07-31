@@ -1,15 +1,18 @@
 export const SearchCountries = ({ value, onChange }) => {
   return (
-    <section>
-      <h2>Search: </h2>
+    <section className="search">
+      <h2 className="subtitle">Search: </h2>
       <div>
-        <label htmlFor="country-input">Find countries: </label>
+        <label htmlFor="country-input" className="search__label">
+          Find countries:{" "}
+        </label>
         <input
           type="text"
           name="country-input"
           id="country-input"
           value={value}
           onChange={onChange}
+          className="search__input"
         />
       </div>
     </section>

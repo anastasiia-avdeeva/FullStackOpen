@@ -26,16 +26,18 @@ export const Weather = ({ city }) => {
   const iconAlt = iconInfo ? `${iconInfo.description} icon` : "weather icon";
 
   return (
-    <aside>
-      <h3>Weather in {city}</h3>
+    <section className="weather">
+      <h3 className="weather__title">Weather in {city}:</h3>
       {weatherError && <ErrorMsg text={weatherError} />}
       {weather && (
         <>
-          <p>Temperature {weather.main.temp} Celsius</p>
+          <p className="weather__info">
+            Temperature {weather.main.temp} Celsius
+          </p>
           {iconSrc && <ImageContainer imgSrc={iconSrc} alt={iconAlt} />}
-          <p>Wind {weather.wind.speed} m/s</p>
+          <p className="weather__info">Wind {weather.wind.speed} m/s</p>
         </>
       )}
-    </aside>
+    </section>
   );
 };

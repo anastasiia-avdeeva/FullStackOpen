@@ -1,3 +1,3 @@
-export const ErrorMsg = ({ text }) => {
-  return <p>{text}</p>;
+export const ErrorMsg = ({ text, className = "info-msg" }) => {
+  return <p className={className}>{text}</p>;
 };
