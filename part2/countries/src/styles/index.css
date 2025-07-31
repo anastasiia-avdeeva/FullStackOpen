@@ -101,6 +101,7 @@ h4 {
 
 .country__title,
 .weather__title {
+  color: rgb(4, 60, 87);
   font-size: 20px;
 }
 
