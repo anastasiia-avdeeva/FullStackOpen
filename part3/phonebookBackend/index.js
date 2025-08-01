@@ -27,11 +27,12 @@ let persons = [
 ];
 
 const generateRandomId = () => {
-  const ids = persons.map((person) => Number(person.id));
   let id;
+
   do {
     id = Math.floor(Math.random() * 10000);
-  } while (ids.includes(id));
+  } while (persons.some((person) => person.id === String(id)));
+
   return String(id);
 };
 
@@ -65,12 +66,24 @@ app.get("/api/persons/:id", (req, resp) => {
 app.delete("/api/persons/:id", (req, resp) => {
   const id = req.params.id;
   persons = persons.filter((person) => person.id !== id);
-  console.log(persons);
   resp.status(204).end();
 });
 
 app.post("/api/persons", (req, resp) => {
   const entry = req.body;
+
+  if (!entry.name || !entry.number) {
+    return resp.status(400).json({
+      error: "content missing",
+    });
+  }
+
+  if (persons.some((person) => person.name === entry.name)) {
+    return resp.status(400).json({
+      error: "name must be unique",
+    });
+  }
+
   const person = {
     id: generateRandomId(),
     ...entry,
