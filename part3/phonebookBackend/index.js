@@ -25,11 +25,19 @@ let persons = [
 ];
 
 app.get("/", (req, resp) => {
-  resp.send("<h1>Phonebook!</h1>");
+  resp.send("<h1>Phonebook</h1>");
 });
 
 app.get("/api/persons", (req, resp) => {
   resp.json(persons);
+});
+
+app.get("/info", (req, resp) => {
+  const arrLen = persons.length;
+  const contactsInfo = `Phonebook has info for ${arrLen} ${
+    arrLen === 1 ? "person" : "people"
+  }`;
+  resp.send(`<p>${contactsInfo}</p><p>${new Date()}</p>`);
 });
 
 const PORT = 3001;
