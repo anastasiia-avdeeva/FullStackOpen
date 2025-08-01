@@ -1,5 +1,7 @@
 const express = require("express");
+
 const app = express();
+app.use(express.json());
 
 let persons = [
   {
@@ -23,6 +25,15 @@ let persons = [
     number: "39-23-6423122",
   },
 ];
+
+const generateRandomId = () => {
+  const ids = persons.map((person) => Number(person.id));
+  let id;
+  do {
+    id = Math.floor(Math.random() * 10000);
+  } while (ids.includes(id));
+  return String(id);
+};
 
 app.get("/", (req, resp) => {
   resp.send("<h1>Phonebook</h1>");
@@ -56,6 +67,16 @@ app.delete("/api/persons/:id", (req, resp) => {
   persons = persons.filter((person) => person.id !== id);
   console.log(persons);
   resp.status(204).end();
+});
+
+app.post("/api/persons", (req, resp) => {
+  const entry = req.body;
+  const person = {
+    id: generateRandomId(),
+    ...entry,
+  };
+  persons = persons.concat(person);
+  resp.json(person);
 });
 
 const PORT = 3001;
