@@ -24,4 +24,5 @@ part3/
 
 ## Links
 
-- **Phonebook application (exercises of part 3 of the course) (Backend + Frontend deployed on Render)can be found on[myphonebook-j6gf.onrender.com](https://myphonebook-j6gf.onrender.com).**
+- **Phonebook application from exercises of part 3 of the course (Backend + Frontend deployed on Render) can be found on
+[myphonebook-j6gf.onrender.com](https://myphonebook-j6gf.onrender.com).**
