@@ -1,6 +1,6 @@
 # Fullstack Open (2025) by University of Helsinki, Finland
 
-This repository contains solutions to the exercise of part 0 - part 7 for the Fullstack Open course
+This repository contains solutions to the exercises of part 0 - part 7 for the Fullstack Open course
 
 ## Structure
 
