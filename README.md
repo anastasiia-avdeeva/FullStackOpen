@@ -4,21 +4,23 @@ This repository contains solutions to the exercise of part 0 - part 7 for the Fu
 
 ## Structure
 
-part0/
-|-0.4NewNoteDiagram.mmd
-|-0.5SinglePageAppDiagram.mmd
-|-0.6NewNoteSap.mmd
-part1/
-|-anecdotes/
-|-courseInfo/
-|-unicafe/
-part2/
-|-countries/
-|-courseInfo2/
-|-phonebook/
-part3/
-|-phonebookBackend/
-|-phonebookFrontend/
+```plaintext
+part0/  
+    |-0.4NewNoteDiagram.mmd
+    |-0.5SinglePageAppDiagram.mmd
+    |-0.6NewNoteSap.mmd
+part1/  
+    |-anecdotes/
+    |-courseInfo/
+    |-unicafe/
+part2/  
+    |-countries/
+    |-courseInfo2/
+    |-phonebook/
+part3/  
+    |-phonebookBackend/
+    |-phonebookFrontend/
+```
 
 ## Links
 
