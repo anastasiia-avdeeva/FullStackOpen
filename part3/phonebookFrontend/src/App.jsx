@@ -65,7 +65,12 @@ const App = () => {
       })
       .catch((error) => {
         console.log("Cannot post new person to the server ", error);
-        const msg = "Unable to add new contact. Please, try again later";
+        let msg = "Unable to add new contact. Please, try again later";
+
+        if (error.response?.data?.error) {
+          msg = error.response?.data?.error;
+        }
+
         notifyUserShortly(setFormMsg, msg, "error");
       });
   };
