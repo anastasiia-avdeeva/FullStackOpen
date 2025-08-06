@@ -37,12 +37,13 @@ const App = () => {
     evt.preventDefault();
 
     if (!newPerson.name || !newPerson.number) {
-      alert("Please, fill in all fields");
+      const txt = "Please, fill in all fields";
+      notifyUserShortly(setFormMsg, txt, "error");
     } else if (helpers.isNameInPersons(persons, newPerson.name)) {
       confirmAndUpdatePerson();
     } else if (helpers.isNumberInPersons(persons, newPerson.number)) {
-      alert(`${newPerson.number} is already in the phonebook`);
-      resetNewPerson();
+      const txt = `${newPerson.number} is already in the phonebook`;
+      notifyUserShortly(setFormMsg, txt, "error");
     } else {
       addNewPerson();
     }
