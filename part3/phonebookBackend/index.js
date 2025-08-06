@@ -1,5 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,8 @@ logger.token("body", (req, resp) =>
 app.use(
   logger(":method :url :status :res[content-length] - :response-time ms :body")
 );
+
+app.use(cors());
 
 let persons = [
   {
