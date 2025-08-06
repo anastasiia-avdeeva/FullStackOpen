@@ -86,13 +86,13 @@ app.post("/api/persons", (req, resp) => {
 
   if (!entry.name || !entry.number) {
     return resp.status(400).json({
-      error: "content missing",
+      error: "Content missing",
     });
   }
 
   if (persons.some((person) => person.name === entry.name)) {
     return resp.status(400).json({
-      error: "name must be unique",
+      error: "Name must be unique",
     });
   }
 
