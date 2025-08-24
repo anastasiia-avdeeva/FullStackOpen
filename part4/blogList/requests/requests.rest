@@ -5,9 +5,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "JavaScript language overview",
-    "author": "mozilla",
-    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Language_overview",
+    "title": "Regular Expression Metacharacters - What Does \\d Mean in RegEx?",
+    "author": "Kolade Chris",
+    "url": "https://www.freecodecamp.org/news/what-does-d-mean-in-regex/",
     "likes": 0
 }
 
