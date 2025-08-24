@@ -5,10 +5,10 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Promises From The Ground Up",
-    "author": "Joshw Comeau.",
-    "url": "https://www.joshwcomeau.com/javascript/promises/",
-    "likes": 57458
+    "title": "JavaScript language overview",
+    "author": "mozilla",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Language_overview",
+    "likes": 0
 }
 
 ###
