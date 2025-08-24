@@ -5,10 +5,10 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Regular Expression Metacharacters - What Does \\d Mean in RegEx?",
-    "author": "Kolade Chris",
-    "url": "https://www.freecodecamp.org/news/what-does-d-mean-in-regex/",
-    "likes": 0
+    "title": "Functional State Update in React",
+    "author": "Gakii",
+    "url": "https://dev.to/gakii/functional-state-update-in-react-42io",
+    "likes": 9
 }
 
 ###
