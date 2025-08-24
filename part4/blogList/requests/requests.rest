@@ -5,10 +5,10 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Anastas",
-    "author": "33335-343567345",
-    "url": "",
-    "likes": 
+    "title": "Promises From The Ground Up",
+    "author": "Joshw Comeau.",
+    "url": "https://www.joshwcomeau.com/javascript/promises/",
+    "likes": 57458
 }
 
 ###
