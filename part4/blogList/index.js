@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const config = require("./utils/config");
 const blogsRouter = require("./controllers/blogs");
 const logger = require("./utils/logger");
+const middleware = require("./utils/middleware");
 
 const app = express();
 
@@ -23,7 +24,9 @@ app.get("/", (request, response) => {
 });
 
 app.use("/api/blogs", blogsRouter);
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 app.listen(config.PORT, () => {
-  console.log(`Server running on port ${config.PORT}`);
+  logger.info(`Server running on port ${config.PORT}`);
 });
